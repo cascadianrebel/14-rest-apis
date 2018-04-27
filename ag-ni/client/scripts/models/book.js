@@ -61,6 +61,7 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
     .catch(errorCallback)
 
   // COMMENT: Where is this method invoked? What is passed in as the 'book' argument when invoked? What callback will be invoked after Book.loadAll is invoked?
+    //This method is invoked in our server file in our function to find a book's apiUrl. The callback that will be invoked will be our app.get function
   Book.find = (book, callback) =>
     $.get(`${ENV.apiUrl}/api/v1/books/find`, book)
       .then(Book.loadAll)
@@ -68,6 +69,7 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
       .catch(errorCallback)
 
   // COMMENT: Where is this method invoked? How does it differ from the Book.find method, above?
+    //This method is invoked in our second app.get function for isbn number. It is different than the first method because our .then invokes our function to create a book instance when the isbn is referenced.
   Book.findOne = isbn =>
     $.get(`${ENV.apiUrl}/api/v1/books/find/${isbn}`)
     .then(Book.create)
